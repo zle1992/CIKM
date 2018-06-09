@@ -12,23 +12,23 @@ def magic1(train_in):
 
     train_orig = train_in.copy()
 
-    df1 = train_orig[['q1_cut']].copy()
-    df2 = train_orig[['q2_cut']].copy()
+    df1 = train_orig[['q1_es_cut']].copy()
+    df2 = train_orig[['q2_es_cut']].copy()
 
-    df2.rename(columns={'q2_cut': 'q1_cut'}, inplace=True)
+    df2.rename(columns={'q2_es_cut': 'q1_es_cut'}, inplace=True)
 
     train_questions = df1.append(df2)
 
     train_questions.reset_index(inplace=True, drop=True)
 
     questions_dict = pd.Series(
-        train_questions.index.values, index=train_questions.q1_cut.values).to_dict()
+        train_questions.index.values, index=train_questions.q1_es_cut.values).to_dict()
     train_cp = train_orig.copy()
 
     comb = train_cp
 
-    comb['q1_hash'] = comb['q1_cut'].map(questions_dict)
-    comb['q2_hash'] = comb['q2_cut'].map(questions_dict)
+    comb['q1_hash'] = comb['q1_es_cut'].map(questions_dict)
+    comb['q2_hash'] = comb['q2_es_cut'].map(questions_dict)
 
     q1_vc = comb.q1_hash.value_counts().to_dict()
     q2_vc = comb.q2_hash.value_counts().to_dict()

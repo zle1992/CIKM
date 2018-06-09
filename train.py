@@ -20,9 +20,9 @@ from keras.regularizers import l2
 from keras import backend as K
 from keras.engine.topology import Layer
 from keras.backend.tensorflow_backend import set_session
-import time
 from tensorflow.contrib import learn
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import log_loss
 import keras.backend as K
 from keras.callbacks import TensorBoard
 from keras.callbacks import Callback
@@ -38,6 +38,8 @@ import config
 from Feats import data_2id,add_hum_feats
 from help import score, train_batch_generator, train_batch_generator3,train_test, get_X_Y_from_df
 from CutWord import read_cut,read_cut_es
+
+
 def load_data():
     print('load data')
     data = read_cut_es()  #cut word
@@ -70,15 +72,16 @@ def train(x_train, y_train,x_dev, y_dev,model_name, model):
         pred_train = model.predict(x_train, batch_size=config.batch_size)
         
         pre, rec, f1 = score(y_dev, pred)
-
+        loss = log_loss(y_dev, pred)
+        print('logloss:',loss)
         np.save(config.model_dir + "/val_pred_%s_%s.npz" %
-                   (model_name, f1),np.array(pred))
+                   (model_name, loss),np.array(pred))
         np.save(config.model_dir + "/train_pred_%s_%s.npz" %
-                   (model_name, f1),np.array(pred_train))
+                   (model_name, loss),np.array(pred_train))
 
         
         model.save(config.model_dir + "/dp_embed_%s_%s.h5" %
-                   (model_name, f1))
+                   (model_name, loss))
         print('p r f1 ', pre, rec, f1)
 
 
@@ -88,10 +91,7 @@ def main(model_name):
     
     if model_name == 'bimpm':
         model = bimpm()
-    # if model_name == 'cnn2':
-    #     model = cnn_v2(config.word_maxlen,
-    #                    embed_weights, pretrain=True)
-
+ 
     if model_name == 'cnn':
 
         model = model_conv1D_()

@@ -50,8 +50,8 @@ def data_2id(data,feats):
 def human_feats(data,outpath,):
    
     
-    data['q1_es_cut'] = data.q1_cut.map(lambda x: ' '.join(x))
-    data['q2_es_cut'] = data.q2_cut.map(lambda x: ' '.join(x))
+    data['q1_es_cut'] = data['q1_es_cut'].map(lambda x: ' '.join(x))
+    data['q2_es_cut'] = data['q2_es_cut'].map(lambda x: ' '.join(x))
     
     print(data.columns)
     data = magic1(data)
