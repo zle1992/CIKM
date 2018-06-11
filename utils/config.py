@@ -27,7 +27,7 @@ word_embed_es_vocab = 'data/word_embed_es_vocab.npy'
 word_embed_es_weight = 'data/word_embed_es_weight.npy'
 data_augment = True
 
-
+stack_path = 'data/stack'
 
 feats =[]
 
@@ -47,8 +47,8 @@ data_feat_hdf = 'data/cache/train_magic_word.hdf'
 train_df= 'data/cache/train_magic_word_train_f{0}.hdf'.format(len(feats))
 dev_df = 'data/cache/train_magic_word_more_dev_f{0}.hdf'.format(len(feats))
 
-word_embed_weight = 'data/my_w2v/word_embed_weight_word.npy'
-w2v_content_word_model = 'data/my_w2v/train_word.model'
+word_embed_weight = word_embed_es_weight
+# w2v_content_word_model = 'data/my_w2v/train_word.model'
 
 
 

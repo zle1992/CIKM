@@ -65,7 +65,7 @@ def train(x_train, y_train,x_dev, y_dev,model_name, model):
             epochs=1,
             steps_per_epoch=int(y_train.shape[0] / config.batch_size),
             validation_data=(x_dev, y_dev),
-            class_weight={0: 1, 1: 4},
+            class_weight={0: 1, 1: 3},
 
         )
         pred = model.predict(x_dev, batch_size=config.batch_size)

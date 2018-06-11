@@ -110,9 +110,9 @@ def ABCNN(
     left_embed = embedding(left_input)
     right_embed = embedding(right_input)
 
-
-    left_embed = BatchNormalization()(left_embed)
-    right_embed = BatchNormalization()(right_embed)
+    # if batch_normalize:
+    #     left_embed = BatchNormalization()(left_embed)
+    #     right_embed = BatchNormalization()(right_embed)
 
     filter_width = filter_widths.pop(0)
     if abcnn_1:
@@ -283,6 +283,6 @@ def ABCNN(
 
     model = Model([left_input, right_input,magic_input], output=classify)
     model.compile(loss='binary_crossentropy',
-                  optimizer=Adam(lr=0.01), metrics=['acc'])
+                  optimizer=Adam(lr=0.1), metrics=['acc'])
     model.summary()
     return model
