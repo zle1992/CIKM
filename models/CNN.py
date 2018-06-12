@@ -199,11 +199,11 @@ def model_conv1D_():
     # Add the magic features
     if len(config.feats) == 0:
         magic_input = Input(shape=(1,))
-        merge = concatenate([diff, mul])  # , magic_dense, distance_dense])
+        
     else:
         magic_input = Input(shape=(len(config.feats),))
-        magic_dense = BatchNormalization()(magic_input)
-        magic_dense = Dense(64, activation='relu')(magic_dense)
+
+       
 
     # # Add the distance features (these are now TFIDF (character and word), Fuzzy matching,
     # # nb char 1 and 2, word mover distance and skew/kurtosis of the sentence
@@ -215,7 +215,9 @@ def model_conv1D_():
     # Merge the Magic and distance features with the difference layer
 
         # , magic_dense, distance_dense])
-        merge = concatenate([diff, mul, magic_dense])
+    magic_dense = BatchNormalization()(magic_input)
+    magic_dense = Dense(64, activation='relu')(magic_dense)
+    merge = concatenate([diff, mul, magic_dense])
 
     # # The MLP that determines the outcome
     x = Dropout(0.2)(merge)

@@ -27,7 +27,7 @@ word_embed_es_vocab = 'data/word_embed_es_vocab.npy'
 word_embed_es_weight = 'data/word_embed_es_weight.npy'
 data_augment = True
 
-stack_path = 'data/stack'
+stack_path = 'data/stack/'
 
 feats =[]
 
